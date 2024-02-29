@@ -14,19 +14,20 @@ body{
     flex-direction: row;
     height: 100%;
     width: 100%;
-    color: white;
+    color: greenyellow;
 }
 h1,
 h2,
-.game-board{
+.classic-game-board{
     display: flex;
-    justify-content: center;;
+    flex-wrap: wrap;
+    justify-content: center;
 
 }
 .human, .computer{
     width: 50px;
 }
-.game-board{
+.classic-game-board{
     margin-top: 10%;
 }
 article{
@@ -47,8 +48,56 @@ width: 250px;
 margin-left: 10px;
 margin-right: 10px;
 }
+.lizard{
+width: 250px;
+margin-right: 10px;
+}
+.alien{
+width: 300px;
+margin-top: 60px;
+margin-left: 10px;
+}
 .human-side,
 .computer-side{
     width: 190px;
     text-align: center;
+}
+.hidden{
+    display: none;
+    visibility: none;
+}
+
+.classic,
+.challenge{
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 10%;
+    border: greenyellow solid;
+}
+.classic:hover,
+.challenge:hover{
+    background-color: greenyellow;
+    color: purple;
+    cursor:grab;
+}
+.classic{
+    width: 300px;
+    margin-left: 600px;
+}
+.challenge{
+    width: 500px;
+    margin-left: 495px;
+}
+button{
+    background-color: purple;
+    color: greenyellow;
+    margin-top: 150px;
+}
+button:hover{
+    background-color: greenyellow;
+    color: purple;
+    cursor:grab;
 }
