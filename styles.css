@@ -1,0 +1,54 @@
+* {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal; 
+  ;
+}
+body{
+    background-image: linear-gradient(black, purple);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    color: white;
+}
+h1,
+h2,
+.game-board{
+    display: flex;
+    justify-content: center;;
+
+}
+.human, .computer{
+    width: 50px;
+}
+.game-board{
+    margin-top: 10%;
+}
+article{
+    width: 80%;
+}
+.rock{
+    width: 275px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.paper{
+width: 200px;
+margin-left: 10px;
+margin-right: 10px;
+}
+.scissors{
+width: 250px;
+margin-left: 10px;
+margin-right: 10px;
+}
+.human-side,
+.computer-side{
+    width: 190px;
+    text-align: center;
+}
