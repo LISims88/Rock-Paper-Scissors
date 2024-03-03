@@ -47,7 +47,6 @@ gameWeapons.addEventListener('click', function(event){
         human.selection = 'scissors'
     }
     createComputer()
-    resetGameBoard()
 })
 challengeBoardAdd.addEventListener('click', function(event){
     if (event.target.className === 'lizard'){
@@ -85,14 +84,21 @@ function returnHome(){
     } 
 }
 function resetGameBoard(){
-    rock.classList.remove('hidden')
-    scissors.classList.remove('hidden')
-    paper.classList.remove('hidden')
-}
-function resetChallengeGame(){
-    lizard.classList.remove('hidden')
-    alien.classList.remove('hidden')
-    resetGameBoard()
+   if (rock){
+       rock.classList.remove('hidden')
+    }
+    if (scissors){
+        scissors.classList.remove('hidden')
+    }
+    if (paper){
+        paper.classList.remove('hidden')
+   }
+   if (lizard){
+       lizard.classList.remove('hidden')
+    }
+if (alien){
+       alien.classList.remove('hidden')
+   }
 }
 //Functions
 function getRandomIndex(array){
@@ -113,29 +119,61 @@ function computerChallenge(){
 function getResults(){
     if((human.selection === 'rock' && computer.selection === 'scissors') || (computer.selection === 'rock' && human.selection === 'scissors')){
         weapons.innerText = `Rock beats Scissors`
+        paper.classList.add('hidden');
+        lizard.classList.add('hidden');
+         alien.classList.add('hidden');
     } else if ((human.selection === 'paper' && computer.selection === 'rock') || (computer.selection === 'paper' && human.selection === 'rock')){
         weapons.innerText = `Paper beats Rock`
+        scissors.classList.add('hidden');
+        lizard.classList.add('hidden');
+        alien.classList.add('hidden');
     }else if ((human.selection === 'scissors' && computer.selection === 'paper') || (computer.selection === 'scissors' && human.selection === 'paper')){
         weapons.innerText = `Scissors beats Paper`
+        rock.classList.add('hidden');
+        lizard.classList.add('hidden');
+        alien.classList.add('hidden');
     }else if ((human.selection === 'rock' && computer.selection === 'lizard') || (computer.selection === 'rock' && human.selection === 'lizard')){
         weapons.innerText = `Rock beats Lizard`
+        paper.classList.add('hidden');
+        scissors.classList.add('hidden');
+        alien.classList.add('hidden');
     } else if ((human.selection === 'paper' && computer.selection === 'alien') || (computer.selection === 'paper' && human.selection === 'alien')){
         weapons.innerText = `Paper beats Alien`
+        rock.classList.add('hidden');
+        scissors.classList.add('hidden');
+        lizard.classList.add('hidden');
     } else if ((human.selection === 'scissors' && computer.selection === 'lizard') || (computer.selection === 'scissors' && human.selection === 'lizard')){
         weapons.innerText = `Scissor beats lizard`
+        rock.classList.add('hidden');
+        paper.classList.add('hidden');
+        alien.classList.add('hidden');
     } else if ((human.selection === 'lizard' && computer.selection === 'paper')|| (computer.selection === 'lizard' && human.selection === 'paper')){
         weapons.innerText = `Lizard beats Paper`
+        rock.classList.add('hidden');
+        scissors.classList.add('hidden');
+        alien.classList.add('hidden');
     }else if ((human.selection === 'lizard' && computer.selection === 'alien') || (computer.selection === 'lizard' && human.selection === 'alien')){
         weapons.innerText = `Lizard beats Alien`
+        rock.classList.add('hidden');
+        paper.classList.add('hidden');
+        scissors.classList.add('hidden');
     }else if ((human.selection === 'alien' && computer.selection === 'scissors')|| (computer.selection === 'alien' && human.selection === 'scissors')){
         weapons.innerText = `Alien beats Scissors`
+        rock.classList.add('hidden');
+        paper.classList.add('hidden');
+        lizard.classList.add('hidden');
     } else if ((human.selection === 'alien' && computer.selection === 'rock') || (computer.selection === 'alien' && human.selection === 'rock')){
         weapons.innerText -` Alien beats Rock`
+        paper.classList.add('hidden');
+         scissors.classList.add('hidden');
+        lizard.classList.add('hidden');
     } else {
         weapons.innerText = `The game is a Draw`
     }
     getWins();
-    setTimeout(function(){}, 8000)
+    setTimeout(function(){
+        resetGameBoard()
+    }, 5000)
     
 }
 function getWins(){
