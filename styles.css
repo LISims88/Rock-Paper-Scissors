@@ -24,6 +24,9 @@ h2,
     justify-content: center;
 
 }
+section.challenge-game{
+    margin-left: 120px;
+}
 .human, .computer{
     width: 50px;
 }
@@ -34,17 +37,20 @@ article{
     width: 80%;
     flex-wrap: wrap;
 }
-.rock{
+.rock,
+.rock-chal{
     width: 275px;
     margin-left: 10px;
     margin-right: 10px;
 }
-.paper{
+.paper,
+.paper-chal{
 width: 200px;
 margin-left: 10px;
 margin-right: 10px;
 }
-.scissors{
+.scissors,
+.scissors-chal{
 width: 250px;
 margin-left: 10px;
 margin-right: 10px;
@@ -101,4 +107,8 @@ button:hover{
     background-color: greenyellow;
     color: purple;
     cursor:grab;
+}
+.game-weapons:hover,
+.challenge-game:hover{
+    cursor: pointer;
 }

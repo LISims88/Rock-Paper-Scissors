@@ -1,6 +1,6 @@
 //Data Model
 var classic = ['rock', 'paper', 'scissors']
-var challenge = ['rock', 'paper', 'scissors', 'lizard', 'alien']
+var challenge = ['rock-chal', 'paper-chal', 'scissors-chal', 'lizard', 'alien']
 var human = {
     wins: 0,
     selection: ''
@@ -27,16 +27,19 @@ var differentGameButton = document.querySelector('.button')
 var classicBoard = document.querySelector('.classic-game-board')
 
 //challenge
-var lizard = document.querySelector('lizard')
+var rockChallenge = document.querySelector('.rock-chal')
+var paperChallenge = document.querySelector('.paper-chal')
+var scissorChallenge= document.querySelector('.scissors-chal')
+var lizard = document.querySelector('.lizard')
 var alien = document.querySelector('.alien')
-var challengeBoardAdd = document.querySelector('.challenge-game-add')
+var challengeBoard = document.querySelector('.challenge-game')
 
 //Eventlisteners
 classicGame.addEventListener('click', showClassicGame)
 challengeGame.addEventListener('click', showChallengeGame)
 differentGameButton.addEventListener('click', function(){
     returnHome()
-    challengeBoardAdd.classList.add('hidden')
+    challengeBoard.classList.add('hidden')
 } )
 gameWeapons.addEventListener('click', function(event){
     if(event.target.className === 'rock') {
@@ -48,39 +51,54 @@ gameWeapons.addEventListener('click', function(event){
     }
     createComputer()
 })
-challengeBoardAdd.addEventListener('click', function(event){
-    if (event.target.className === 'lizard'){
+challengeBoard.addEventListener('click', function(event){
+    if(event.target.className === 'rock-chal') {
+        human.selection = 'rock-chal'
+        //console.log('player chose',human.selection)
+    } else if(event.target.className === 'paper-chal'){
+        human.selection = 'paper-chal'
+    } else if(event.target.className === 'scissors-chal'){
+        human.selection = 'scissors-chal'
+    } else if (event.target.className === 'lizard'){
         human.selection = 'lizard'
     } else if (event.target.className === 'alien'){
         human.selection = 'alien'
     }
     computerChallenge()
-    resetChallengeGame()
     
 })
 //Event Handlers
 function showClassicGame(){
-    classicGame.classList.toggle('hidden')
-    challengeGame.classList.toggle('hidden')
-    gameChoice.classList.toggle('hidden')
-    classicBoard.classList.toggle('hidden')
-    weapons.classList.toggle('hidden')
-    differentGameButton.classList.toggle('hidden')
+    classicGame.classList.add('hidden')
+    challengeGame.classList.add('hidden')
+    gameChoice.classList.add('hidden')
+    classicBoard.classList.remove('hidden')
+    weapons.classList.remove('hidden')
+    differentGameButton.classList.remove('hidden')
 }
 function showChallengeGame(){
-    classicGame.classList.toggle('hidden')
-    challengeGame.classList.toggle('hidden')
-    gameChoice.classList.toggle('hidden')
-    classicBoard.classList.toggle('hidden')
-    challengeBoardAdd.classList.remove('hidden')
-    weapons.classList.toggle('hidden')
-    differentGameButton.classList.toggle('hidden')
+    classicGame.classList.add('hidden')
+    challengeGame.classList.add('hidden')
+    gameChoice.classList.add('hidden')
+    challengeBoard.classList.remove('hidden')
+    weapons.classList.remove('hidden')
+    differentGameButton.classList.remove('hidden')
 }
 function returnHome(){
      if (showClassicGame){
-        !showClassicGame()
+        classicGame.classList.remove('hidden')
+        challengeGame.classList.remove('hidden')
+        gameChoice.classList.remove('hidden')
+        classicBoard.classList.add('hidden')
+        weapons.classList.add('hidden')
+        differentGameButton.classList.add('hidden')
     } else if (showChallengeGame){
-        !showChallengeGame()
+        classicGame.classList.add('hidden')
+        challengeGame.classList.add('hidden')
+        gameChoice.classList.remove('hidden')
+        challengeBoard.classList.add('hidden')
+        weapons.classList.add('hidden')
+        differentGameButton.classList.add('hidden')
     } 
 }
 function resetGameBoard(){
@@ -93,12 +111,25 @@ function resetGameBoard(){
     if (paper){
         paper.classList.remove('hidden')
    }
-   if (lizard){
-       lizard.classList.remove('hidden')
+   weapons.innerText = 'Choose you Weapon'
+}
+function challengeResetGame(){
+    if (rock){
+        rockChallenge.classList.remove('hidden')
+     }
+     if (scissors){
+         scissorChallenge.classList.remove('hidden')
+     }
+     if (paper){
+         paperChallenge.classList.remove('hidden')
     }
-if (alien){
-       alien.classList.remove('hidden')
-   }
+    if (lizard){
+        lizard.classList.remove('hidden')
+     }
+ if (alien){
+        alien.classList.remove('hidden')
+    }
+    weapons.innerText = 'Choose you Weapon'
 }
 //Functions
 function getRandomIndex(array){
@@ -108,80 +139,116 @@ function getRandomIndex(array){
 
 function createComputer(){
     computer.selection = getRandomIndex(classic)
-    getResults()
+    getResultsClassic()
 }
 function computerChallenge(){
-    createComputer()
     computer.selection= getRandomIndex(challenge)
-    getResults()
+    getResultsChallenge()
 }
-
-function getResults(){
+function getResultsClassic(){
     if((human.selection === 'rock' && computer.selection === 'scissors') || (computer.selection === 'rock' && human.selection === 'scissors')){
         weapons.innerText = `Rock beats Scissors`
         paper.classList.add('hidden');
+        
+    } else if ((human.selection === 'paper' && computer.selection === 'rock') || (computer.selection === 'paper' && human.selection === 'rock')){
+        weapons.innerText = `Paper beats Rock`
+        scissors.classList.add('hidden');
+        
+    }else if ((human.selection === 'scissors' && computer.selection === 'paper') || (computer.selection === 'scissors' && human.selection === 'paper')){
+        weapons.innerText = `Scissors beats Paper`
+        rock.classList.add('hidden');
+       
+    }else {
+        weapons.innerText = `The game is a Draw`
+    }
+    getWinsClassic();
+    setTimeout(function(){
+        resetGameBoard()
+    }, 5000)
+}
+function getResultsChallenge(){
+    //console.log('html element',lizard)
+    if((human.selection === 'rock-chal' && computer.selection === 'scissors-chal') || (computer.selection === 'rock-chal' && human.selection === 'scissors-chal')){
+        weapons.innerText = `Rock beats Scissors`
+        paperChallenge.classList.add('hidden');
         lizard.classList.add('hidden');
          alien.classList.add('hidden');
     } else if ((human.selection === 'paper' && computer.selection === 'rock') || (computer.selection === 'paper' && human.selection === 'rock')){
         weapons.innerText = `Paper beats Rock`
-        scissors.classList.add('hidden');
+        scissorChallenge.classList.add('hidden');
         lizard.classList.add('hidden');
         alien.classList.add('hidden');
     }else if ((human.selection === 'scissors' && computer.selection === 'paper') || (computer.selection === 'scissors' && human.selection === 'paper')){
         weapons.innerText = `Scissors beats Paper`
-        rock.classList.add('hidden');
+        rockChallenge.classList.add('hidden');
         lizard.classList.add('hidden');
         alien.classList.add('hidden');
     }else if ((human.selection === 'rock' && computer.selection === 'lizard') || (computer.selection === 'rock' && human.selection === 'lizard')){
         weapons.innerText = `Rock beats Lizard`
-        paper.classList.add('hidden');
-        scissors.classList.add('hidden');
+        paperChallenge.classList.add('hidden');
+        scissorChallenge.classList.add('hidden');
         alien.classList.add('hidden');
     } else if ((human.selection === 'paper' && computer.selection === 'alien') || (computer.selection === 'paper' && human.selection === 'alien')){
         weapons.innerText = `Paper beats Alien`
-        rock.classList.add('hidden');
-        scissors.classList.add('hidden');
+        rockChallenge.classList.add('hidden');
+        scissorChallenge.classList.add('hidden');
         lizard.classList.add('hidden');
     } else if ((human.selection === 'scissors' && computer.selection === 'lizard') || (computer.selection === 'scissors' && human.selection === 'lizard')){
         weapons.innerText = `Scissor beats lizard`
-        rock.classList.add('hidden');
-        paper.classList.add('hidden');
+        rockChallenge.classList.add('hidden');
+        paperChallenge.classList.add('hidden');
         alien.classList.add('hidden');
     } else if ((human.selection === 'lizard' && computer.selection === 'paper')|| (computer.selection === 'lizard' && human.selection === 'paper')){
         weapons.innerText = `Lizard beats Paper`
-        rock.classList.add('hidden');
-        scissors.classList.add('hidden');
+        rockChallenge.classList.add('hidden');
+        scissorChallenge.classList.add('hidden');
         alien.classList.add('hidden');
     }else if ((human.selection === 'lizard' && computer.selection === 'alien') || (computer.selection === 'lizard' && human.selection === 'alien')){
         weapons.innerText = `Lizard beats Alien`
-        rock.classList.add('hidden');
-        paper.classList.add('hidden');
-        scissors.classList.add('hidden');
+        rockChallenge.classList.add('hidden');
+        paperChallenge.classList.add('hidden');
+        scissorChallenge.classList.add('hidden');
     }else if ((human.selection === 'alien' && computer.selection === 'scissors')|| (computer.selection === 'alien' && human.selection === 'scissors')){
         weapons.innerText = `Alien beats Scissors`
-        rock.classList.add('hidden');
-        paper.classList.add('hidden');
+        rockChallenge.classList.add('hidden');
+        paperChallenge.classList.add('hidden');
         lizard.classList.add('hidden');
     } else if ((human.selection === 'alien' && computer.selection === 'rock') || (computer.selection === 'alien' && human.selection === 'rock')){
         weapons.innerText -` Alien beats Rock`
-        paper.classList.add('hidden');
-         scissors.classList.add('hidden');
+        paperChallenge.classList.add('hidden');
+        scissorChallenge.classList.add('hidden');
         lizard.classList.add('hidden');
-    } else {
+    } else{
+        console.log(computer.selection)
+        console.log(human.selection)
         weapons.innerText = `The game is a Draw`
     }
     getWins();
     setTimeout(function(){
-        resetGameBoard()
+        challengeResetGame()
     }, 5000)
     
 }
-function getWins(){
-      if ((human.selection === 'rock' && computer.selection === 'scissors')|| (human.selection === 'paper' && computer.selection === 'rock')|| (human.selection === 'scissors' && computer.selection === 'paper')|| (human.selection === 'rock' && computer.selection === 'lizard')||(human.selection === 'paper' && computer.selection === 'alien')||(human.selection === 'scissors' && computer.selection === 'lizard')||(human.selection === 'lizard' && computer.selection === 'paper')||(human.selection === 'lizard' && computer.selection === 'alien')||(human.selection === 'alien' && computer.selection === 'scissors')||(human.selection === 'alien' && computer.selection === 'rock')){
+function getWinsClassic(){
+    if ((human.selection === 'rock' && computer.selection === 'scissors')|| (human.selection === 'paper' && computer.selection === 'rock')|| (human.selection === 'scissors' && computer.selection === 'paper')){
         humanWins.innerText = human.wins += 1
-    } else if((computer.selection === 'rock' && human.selection === 'scissors')||(computer.selection === 'paper' && human.selection === 'rock')||(computer.selection === 'scissors' && human.selection === 'paper')||(computer.selection === 'rock' && human.selection === 'lizard')||(computer.selection === 'paper' && human.selection === 'alien')||(computer.selection === 'scissors' && human.selection === 'lizard')||(computer.selection === 'lizard' && human.selection === 'paper')||(computer.selection === 'lizard' && human.selection === 'alien')||(computer.selection === 'alien' && human.selection === 'scissors')||(computer.selection === 'alien' && human.selection === 'rock')){
+    } else if ((computer.selection === 'rock' && human.selection === 'scissors')||(computer.selection === 'paper' && human.selection === 'rock')||(computer.selection === 'scissors' && human.selection === 'paper')){
+        computerWins.innerText = computer.wins += 1
+    } else{ 
+        return
+    }
+
+}
+function getWins(){
+      if ((human.selection === 'rock-chal' && computer.selection === 'scissors-chal')|| (human.selection === 'paper-chal' && computer.selection === 'rock-chal')|| (human.selection === 'scissors-chal' && computer.selection === 'paper-chal')|| (human.selection === 'rock-chal' && computer.selection === 'lizard')||(human.selection === 'paper-chal' && computer.selection === 'alien')||(human.selection === 'scissors-chal' && computer.selection === 'lizard')||(human.selection === 'lizard' && computer.selection === 'paper-chal')||(human.selection === 'lizard' && computer.selection === 'alien')||(human.selection === 'alien' && computer.selection === 'scissors-chal')||(human.selection === 'alien' && computer.selection === 'rock-chal')){
+        console.log(human)
+        humanWins.innerText = human.wins += 1
+    } else if((computer.selection === 'rock-chal' && human.selection === 'scissors-chal')||(computer.selection === 'paper-chal' && human.selection === 'rock')||(computer.selection === 'scissors-chal' && human.selection === 'paper-chal')||(computer.selection === 'rock-chal' && human.selection === 'lizard')||(computer.selection === 'paper-chal' && human.selection === 'alien')||(computer.selection === 'scissors' && human.selection === 'lizard')||(computer.selection === 'lizard' && human.selection === 'paper-chal')||(computer.selection === 'lizard' && human.selection === 'alien')||(computer.selection === 'alien' && human.selection === 'scissors-chal')||(computer.selection === 'alien' && human.selection === 'rock-chal')){
         computerWins.innerText = computer.wins += 1
     } else{
         return
     }
+}
+function drawGame (){
+
 }
